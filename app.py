@@ -4,7 +4,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # Replace "*" with your frontend URL for better security
-CORS(app, resources={r"/*": {"origins": ["https://calculator-frontend-three.vercel.app/"]}})
+CORS(app, resources={r"/*": {"origins": ["https://calculator-frontend-three.vercel.app/calculate"]}})
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
