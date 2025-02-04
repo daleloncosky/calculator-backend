@@ -9,7 +9,7 @@ CORS(app, resources={r"/https://calculator-frontend-git-main-hypssters-projects.
 @app.route("/calculate", methods=["POST"])
 def calculate():
     data = request.get_json()
-    first_number = float(data.get("first_number", 0))
+    first_number = float(data.get("first_number", 0)) 
     second_number = float(data.get("second_number", 0))
     operation = data.get("operation")
 
