@@ -2,14 +2,12 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-
-# Replace "*" with your frontend URL for better security
-CORS(app, resources={r"/https://calculator-frontend-git-main-hypssters-projects.vercel.app/": {"origins": ["https://calculator-frontend-three.vercel.app/"]}})
+CORS(app)  # Allow frontend to access API
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
     data = request.get_json()
-    first_number = float(data.get("first_number", 0)) 
+    first_number = float(data.get("first_number", 0))
     second_number = float(data.get("second_number", 0))
     operation = data.get("operation")
 
