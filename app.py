@@ -2,7 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all requests
+
+# Allow all origins for now (for debugging)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
