@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Allow frontend to access API
+CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all requests
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
