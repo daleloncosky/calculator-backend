@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # ✅ Import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "https://calculator.hypsster.com"}})  # ✅ Allow requests from frontend only
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
@@ -11,7 +13,7 @@ def calculate():
         operation = data.get("operation")
 
         if operation == "**":
-            # Use modular exponentiation to prevent overflow
+            # ✅ Use modular exponentiation to prevent overflow
             result = pow(num1, num2, 10**20)  # Mod to keep size reasonable
         elif operation == "+":
             result = num1 + num2
