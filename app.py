@@ -1,38 +1,39 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 
 app = Flask(__name__)
 
-# Allow all origins for now (for debugging)
-CORS(app, resources={r"/*": {"origins": "*"}})
-
 @app.route("/calculate", methods=["POST"])
 def calculate():
-    data = request.get_json()
-    first_number = float(data.get("first_number", 0))
-    second_number = float(data.get("second_number", 0))
-    operation = data.get("operation")
+    try:
+        data = request.get_json()
+        num1 = int(data.get("first_number"))
+        num2 = int(data.get("second_number"))
+        operation = data.get("operation")
 
-    if operation == "+":
-        result = first_number + second_number
-    elif operation == "-":
-        result = first_number - second_number
-    elif operation == "*":
-        result = first_number * second_number
-    elif operation == "/":
-        if second_number == 0:
-            return jsonify({"error": "Cannot divide by zero"}), 400
-        result = first_number / second_number
-    elif operation == "%":
-        if second_number == 0:
-            return jsonify({"error": "Cannot modulo by zero"}), 400
-        result = first_number % second_number
-    elif operation == "**":
-        result = first_number ** second_number
-    else:
-        return jsonify({"error": "Invalid operation"}), 400
+        if operation == "**":
+            # Use modular exponentiation to prevent overflow
+            result = pow(num1, num2, 10**20)  # Mod to keep size reasonable
+        elif operation == "+":
+            result = num1 + num2
+        elif operation == "-":
+            result = num1 - num2
+        elif operation == "*":
+            result = num1 * num2
+        elif operation == "/":
+            if num2 == 0:
+                return jsonify({"error": "Division by zero is not allowed"}), 400
+            result = num1 / num2
+        elif operation == "%":
+            if num2 == 0:
+                return jsonify({"error": "Modulo by zero is not allowed"}), 400
+            result = num1 % num2
+        else:
+            return jsonify({"error": "Invalid operation"}), 400
 
-    return jsonify({"result": result})
+        return jsonify({"result": result})
+
+    except Exception as e:
+        return jsonify({"error": f"Server error: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
