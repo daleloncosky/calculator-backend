@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # ✅ Import CORS
+from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://calculator.hypsster.com"}})  # ✅ Allow requests from frontend only
+CORS(app, resources={r"/*": {"origins": "https://calculator.hypsster.com"}})  # Accepts requests from front end only
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
@@ -13,8 +13,7 @@ def calculate():
         operation = data.get("operation")
 
         if operation == "**":
-            # ✅ Use modular exponentiation to prevent overflow
-            result = pow(num1, num2, 10**20)  # Mod to keep size reasonable
+            result = pow(num1, num2, 10**20)
         elif operation == "+":
             result = num1 + num2
         elif operation == "-":
@@ -24,7 +23,7 @@ def calculate():
         elif operation == "/":
             if num2 == 0:
                 return jsonify({"error": "Division by zero is not allowed"}), 400
-            result = num1 / num2
+            result = num1 / nu
         elif operation == "%":
             if num2 == 0:
                 return jsonify({"error": "Modulo by zero is not allowed"}), 400
