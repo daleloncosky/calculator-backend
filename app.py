@@ -12,6 +12,7 @@ def calculate():
         num2 = int(data.get("second_number"))
         operation = data.get("operation")
 
+        # Operations
         if operation == "**":
             result = pow(num1, num2, 10**20)
         elif operation == "+":
