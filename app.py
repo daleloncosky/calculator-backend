@@ -23,7 +23,7 @@ def calculate():
         elif operation == "/":
             if num2 == 0:
                 return jsonify({"error": "Division by zero is not allowed"}), 400
-            result = num1 / nu
+            result = num1 / num2
         elif operation == "%":
             if num2 == 0:
                 return jsonify({"error": "Modulo by zero is not allowed"}), 400
